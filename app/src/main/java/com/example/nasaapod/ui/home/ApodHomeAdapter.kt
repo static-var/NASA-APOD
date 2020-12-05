@@ -2,9 +2,11 @@ package com.example.nasaapod.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.nasaapod.R
 import com.example.nasaapod.data.model.ApodImage
 import com.example.nasaapod.databinding.ItemApodHomeBinding
 
@@ -18,7 +20,12 @@ class ApodHomeAdapter(
         fun bind(apodImage: ApodImage) {
             with(binding) {
                 imageHolder.load(apodImage.url) {
-                    transformations(RoundedCornersTransformation(16f))
+                    transformations(RoundedCornersTransformation(
+                        ResourcesCompat.getFloat(
+                            binding.root.context.resources,
+                            R.dimen.thumbnail_image_radius
+                        )
+                    ))
                     crossfade(true)
                 }
                 binding.root.setOnClickListener {
