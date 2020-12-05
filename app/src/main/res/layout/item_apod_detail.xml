@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/image_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            app:layout_constraintTop_toBottomOf="@id/image_holder"
+            tools:text="Title of image" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            android:justificationMode="inter_word"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:targetApi="o"
+            tools:text="description of image" />
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            tools:text="2019-12-09" />
+
+        <TextView
+            android:id="@+id/copyright"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            app:layout_constraintTop_toBottomOf="@id/date"
+            tools:text="ESA/HubbleNASA" />
+
+        <TextView
+            android:id="@+id/media_type"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            app:layout_constraintTop_toBottomOf="@id/copyright"
+            tools:text="Image" />
+
+        <TextView
+            android:id="@+id/service_version"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            app:layout_constraintTop_toBottomOf="@id/media_type"
+            tools:text="v1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
