@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_apod_home_height">180dp</dimen>
-    <dimen name="content_margin">4dp</dimen>
+    <dimen name="content_margin">6dp</dimen>
+    <item name="hero_image_radius" format="float" type="dimen">24</item>
+    <item name="thumbnail_image_radius" format="float" type="dimen">12</item>
 </resources>
