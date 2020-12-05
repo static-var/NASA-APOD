@@ -9,6 +9,8 @@ import com.example.nasaapod.ui.UiState
 import com.squareup.moshi.JsonAdapter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 class ApodRepository @Inject constructor(
@@ -26,6 +28,7 @@ class ApodRepository @Inject constructor(
     fun getApodList() = flow<UiState<List<ApodImage>>> {
         context.resources.openRawResource(R.raw.apod).use { inputStream ->
             apodImageListAdapter.fromJson(inputStream.bufferedReader().readText())
+                ?.sortedByDescending { LocalDate.parse(it.date, DateTimeFormatter.ISO_DATE) }
         }?.let {
             emit(Success(it))
         } ?: emit(Error("Unable to parse JSON"))
