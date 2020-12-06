@@ -2,7 +2,6 @@ package com.example.nasaapod.ui.home
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.ViewGroupCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -21,10 +20,9 @@ import com.example.nasaapod.ui.Success
 import com.example.nasaapod.utils.autoCleared
 import com.example.nasaapod.utils.viewBinding
 import com.google.android.material.transition.MaterialElevationScale
-import com.google.android.material.transition.MaterialFadeThrough
 
 /**
- * Usage - show a scrollable grid of pictures starting with the latest images first.
+ * HomeFragment - show a scrollable grid of pictures starting with the latest images first.
  * When the user taps on an image that should open in [ApodDetailsFragment] and should show details
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -60,9 +58,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         apodRecyclerView.isVisible = true
                         errorText.isVisible = false
                     }
-                    apodHomeAdapter.updateData(uiState.data)
-                    view?.doOnPreDraw { startPostponedEnterTransition() }
                     viewModel.setApodImages(uiState.data)
+                    apodHomeAdapter.updateData(uiState.data)
+
+                    // continue transition
+                    view?.doOnPreDraw { startPostponedEnterTransition() }
                 }
             }
         }
@@ -71,7 +71,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // postpone transition, will resume once data is set to recyclerview,
+        // else [reenterTransition] won't work as expected
         postponeEnterTransition()
+
         ViewGroupCompat.setTransitionGroup(viewBinding.apodRecyclerView, true)
 
         apodHomeAdapter = ApodHomeAdapter { clickedView, position ->
@@ -83,11 +86,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
             val viewTransitionName = getString(R.string.image_open_transition)
             val extras = FragmentNavigatorExtras(clickedView to viewTransitionName)
-            findNavController().navigate(HomeFragmentDirections.actionHomeToApodDetails(position), extras)
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeToApodDetails(position),
+                extras
+            )
         }
 
+        // prevent recyclerview from resetting it's scroll position
         apodHomeAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
         viewBinding.apodRecyclerView.layoutManager =
             GridLayoutManager(requireContext(), 2)
         viewBinding.apodRecyclerView.adapter = apodHomeAdapter

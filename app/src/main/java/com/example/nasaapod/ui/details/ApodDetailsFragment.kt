@@ -16,7 +16,11 @@ import com.example.nasaapod.utils.autoCleared
 import com.example.nasaapod.utils.viewBinding
 import com.google.android.material.transition.MaterialContainerTransform
 
-
+/**
+ * ApodDetailsFragment - Show's information about [ApodImage], the information is displayed through
+ * [ViewPager2] which allows user to swipe between all the [ApodImage].
+ *
+ */
 class ApodDetailsFragment : Fragment(R.layout.fragment_apod_details) {
     
     private val viewModel by activityViewModels<ApodViewModel>()
@@ -37,9 +41,10 @@ class ApodDetailsFragment : Fragment(R.layout.fragment_apod_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Set transition name, required to make sharedElementTransition successful
         ViewCompat.setTransitionName(viewBinding.root, getString(R.string.image_open_transition))
+
         apodDetailAdapter = ApodDetailAdapter(viewModel.apodImages)
-        viewBinding.viewPager.orientation = ORIENTATION_HORIZONTAL
         viewBinding.viewPager.adapter = apodDetailAdapter
         viewBinding.viewPager.setCurrentItem(args.position, false)
     }

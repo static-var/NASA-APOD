@@ -12,6 +12,11 @@ import com.example.nasaapod.R
 import com.example.nasaapod.data.model.ApodImage
 import com.example.nasaapod.databinding.ItemApodHomeBinding
 
+/**
+ * ApodHomeAdapter - Adapter holds [ApodImage] and shows only the [ApodImage.url] as thumbnail
+ *
+ * @property click
+ */
 class ApodHomeAdapter(
     private val click: (View, Int) -> Unit
 ) : RecyclerView.Adapter<ApodHomeAdapter.ViewHolder>() {
@@ -33,7 +38,10 @@ class ApodHomeAdapter(
 
                     crossfade(true)
                 }
-                ViewCompat.setTransitionName(binding.root, binding.root.context.getString(R.string.image_view_transition, position))
+                ViewCompat.setTransitionName(
+                    binding.root,
+                    binding.root.context.getString(R.string.image_view_transition, position)
+                )
                 binding.root.setOnClickListener {
                     click(it, apodImages.indexOf(apodImage))
                 }

@@ -11,6 +11,11 @@ import com.example.nasaapod.R
 import com.example.nasaapod.data.model.ApodImage
 import com.example.nasaapod.databinding.ItemApodDetailBinding
 
+/**
+ * ApodDetailAdapter - Adapter which holds data of [ApodImage] and maps the information to the views
+ *
+ * @property apodImages
+ */
 class ApodDetailAdapter(private var apodImages: List<ApodImage> = listOf()) :
     RecyclerView.Adapter<ApodDetailAdapter.ViewHolder>() {
 
