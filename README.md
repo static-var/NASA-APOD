@@ -42,3 +42,5 @@ Miscellaneous Information
 ----------------
 
 This app is written while keeping in mind the [MVVM architecture](https://developer.android.com/jetpack/guide), there are Unit test written for ViewModel and Repository Layer, the UI layer is untested due to my lack of knowledge in the specific domain.
+
+Here is a [Preview gif](/preview.gif) of the app.
