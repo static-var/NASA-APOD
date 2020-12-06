@@ -3,4 +3,6 @@
 
     <string name="item_apod_description">APOD Image</string>
     <string name="image_detail">Image Detail</string>
+    <string name="image_open_transition">image_open</string>
+    <string name="image_view_transition">image_view_%1$d</string>
 </resources>

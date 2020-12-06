@@ -1,8 +1,10 @@
 package com.example.nasaapod.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -11,25 +13,29 @@ import com.example.nasaapod.data.model.ApodImage
 import com.example.nasaapod.databinding.ItemApodHomeBinding
 
 class ApodHomeAdapter(
-    private val click: (Int) -> Unit
+    private val click: (View, Int) -> Unit
 ) : RecyclerView.Adapter<ApodHomeAdapter.ViewHolder>() {
     private var apodImages: List<ApodImage> = listOf()
 
     inner class ViewHolder(private val binding: ItemApodHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(apodImage: ApodImage) {
+        fun bind(apodImage: ApodImage, position: Int) {
             with(binding) {
                 imageHolder.load(apodImage.url) {
-                    transformations(RoundedCornersTransformation(
-                        ResourcesCompat.getFloat(
-                            binding.root.context.resources,
-                            R.dimen.thumbnail_image_radius
+                    transformations(
+                        RoundedCornersTransformation(
+                            ResourcesCompat.getFloat(
+                                binding.root.context.resources,
+                                R.dimen.thumbnail_image_radius
+                            )
                         )
-                    ))
+                    )
+
                     crossfade(true)
                 }
+                ViewCompat.setTransitionName(binding.root, binding.root.context.getString(R.string.image_view_transition, position))
                 binding.root.setOnClickListener {
-                    click(apodImages.indexOf(apodImage))
+                    click(it, apodImages.indexOf(apodImage))
                 }
             }
 
@@ -43,7 +49,7 @@ class ApodHomeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(apodImages[position])
+        holder.bind(apodImages[position], position)
     }
 
     override fun getItemCount(): Int = apodImages.size
