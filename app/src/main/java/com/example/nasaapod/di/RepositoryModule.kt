@@ -1,6 +1,7 @@
 package com.example.nasaapod.di
 
 import android.content.Context
+import com.example.nasaapod.data.ApodService
 import com.example.nasaapod.data.model.ApodImage
 import com.example.nasaapod.data.repository.ApodRepository
 import com.squareup.moshi.JsonAdapter
@@ -18,9 +19,9 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideApodRepository(
-        @ApplicationContext context: Context,
+        apodService: ApodService,
         jsonAdapter: JsonAdapter<List<ApodImage>>
     ): ApodRepository {
-        return ApodRepository(context, jsonAdapter)
+        return ApodRepository(apodService, jsonAdapter)
     }
 }
