@@ -3,6 +3,7 @@ package com.example.nasaapod.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,13 @@ class ApodHomeAdapter(
         fun bind(apodImage: ApodImage, position: Int) {
             with(binding) {
                 imageHolder.load(apodImage.url) {
+                    placeholder(
+                        ContextCompat.getDrawable(
+                            binding.root.context,
+                            R.drawable.ic_loading
+                        )
+                    )
+                    crossfade(true)
                     transformations(
                         RoundedCornersTransformation(
                             ResourcesCompat.getFloat(
@@ -35,8 +43,6 @@ class ApodHomeAdapter(
                             )
                         )
                     )
-
-                    crossfade(true)
                 }
                 ViewCompat.setTransitionName(
                     binding.root,

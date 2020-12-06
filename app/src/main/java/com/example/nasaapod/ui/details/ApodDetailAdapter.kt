@@ -2,6 +2,7 @@ package com.example.nasaapod.ui.details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,13 @@ class ApodDetailAdapter(private var apodImages: List<ApodImage> = listOf()) :
         fun bind(apodImage: ApodImage) {
             with(binding) {
                 imageHolder.load(apodImage.hdUrl) {
+                    placeholder(
+                        ContextCompat.getDrawable(
+                            binding.root.context,
+                            R.drawable.ic_loading
+                        )
+                    )
+                    crossfade(true)
                     transformations(
                         RoundedCornersTransformation(
                             ResourcesCompat.getFloat(
@@ -32,7 +40,6 @@ class ApodDetailAdapter(private var apodImages: List<ApodImage> = listOf()) :
                             )
                         )
                     )
-                    crossfade(true)
                 }
                 title.text = apodImage.title
                 description.text = apodImage.explanation
